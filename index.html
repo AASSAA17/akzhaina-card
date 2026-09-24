@@ -4,99 +4,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Для Ақжайны</title>
+<title>Открой меня</title>
 
 <style>
     * {
-        box-sizing: border-box;
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
     body {
         min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+            radial-gradient(circle at 20% 20%, #fff7d6 0, transparent 30%),
+            radial-gradient(circle at 80% 30%, #ffe3ec 0, transparent 30%),
+            radial-gradient(circle at 50% 90%, #e5f4ff 0, transparent 35%),
+            #fffaf7;
+
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #f5f5f5, #ffffff);
-        font-family: Arial, sans-serif;
+
+        overflow: hidden;
+        color: #333;
     }
+
+    /* ФОН */
+
+    .background {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .floating {
+        position: absolute;
+        opacity: 0.55;
+        animation: float 6s ease-in-out infinite;
+        user-select: none;
+    }
+
+    .item1 {
+        top: 8%;
+        left: 8%;
+        font-size: 45px;
+    }
+
+    .item2 {
+        top: 15%;
+        right: 8%;
+        font-size: 55px;
+        animation-delay: 1s;
+    }
+
+    .item3 {
+        bottom: 10%;
+        left: 10%;
+        font-size: 55px;
+        animation-delay: 2s;
+    }
+
+    .item4 {
+        bottom: 15%;
+        right: 10%;
+        font-size: 45px;
+        animation-delay: 3s;
+    }
+
+    .item5 {
+        top: 45%;
+        left: 3%;
+        font-size: 35px;
+        animation-delay: 1.5s;
+    }
+
+    .item6 {
+        top: 50%;
+        right: 3%;
+        font-size: 35px;
+        animation-delay: 2.5s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(-3deg);
+        }
+
+        50% {
+            transform: translateY(-18px) rotate(5deg);
+        }
+    }
+
+    /* ОСНОВНАЯ КАРТОЧКА */
 
     .card {
+        position: relative;
+        z-index: 5;
+
         width: 90%;
-        max-width: 380px;
-        background: white;
-        padding: 40px 25px;
-        border-radius: 28px;
+        max-width: 420px;
+        min-height: 430px;
+
+        padding: 45px 30px;
+
+        background: rgba(255,255,255,0.82);
+        backdrop-filter: blur(18px);
+
+        border: 1px solid rgba(255,255,255,0.8);
+        border-radius: 35px;
+
+        box-shadow:
+            0 25px 70px rgba(0,0,0,0.10);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         text-align: center;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.10);
-    }
-
-    .emoji {
-        font-size: 60px;
-        margin-bottom: 18px;
-    }
-
-    h1 {
-        color: #222;
-        margin-bottom: 15px;
-    }
-
-    p {
-        color: #666;
-        font-size: 18px;
-        line-height: 1.5;
-        margin-bottom: 25px;
-    }
-
-    button {
-        border: none;
-        padding: 13px 25px;
-        margin: 6px;
-        border-radius: 30px;
-        font-size: 17px;
-        cursor: pointer;
-        transition: 0.25s;
-    }
-
-    button:hover {
-        transform: scale(1.06);
-    }
-
-    .main-btn,
-    .yes {
-        background: #222;
-        color: white;
-    }
-
-    .no {
-        background: #eee;
-        color: #555;
     }
 
     .screen {
         display: none;
-        animation: appear 0.5s ease;
+        width: 100%;
     }
 
-    .active {
+    .screen.active {
         display: block;
+        animation: show 0.65s ease;
     }
 
-    .name {
-        color: #222;
-        font-weight: bold;
-    }
-
-    @keyframes appear {
+    @keyframes show {
         from {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px) scale(0.96);
         }
 
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* КОТИК */
+
+    .cat {
+        font-size: 75px;
+        margin-bottom: 20px;
+        animation: catMove 2.5s ease-in-out infinite;
+    }
+
+    @keyframes catMove {
+        0%,100% {
+            transform: rotate(-4deg);
+        }
+
+        50% {
+            transform: rotate(4deg) translateY(-6px);
+        }
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 14px;
+        font-weight: 700;
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    p {
+        color: #777;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    /* INPUT */
+
+    input {
+        width: 100%;
+
+        padding: 16px 18px;
+        margin-bottom: 15px;
+
+        border: 1px solid #e8e8e8;
+        outline: none;
+
+        border-radius: 18px;
+
+        background: rgba(255,255,255,0.9);
+
+        font-size: 16px;
+
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #bdbdbd;
+        box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+    }
+
+    /* КНОПКА */
+
+    button {
+        border: none;
+        outline: none;
+
+        background: #292929;
+        color: white;
+
+        padding: 15px 28px;
+
+        border-radius: 50px;
+
+        font-size: 16px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    button:active {
+        transform: scale(0.96);
+    }
+
+    /* ФИНАЛ */
+
+    .flowers {
+        font-size: 55px;
+        margin-bottom: 15px;
+        animation: flower 3s ease-in-out infinite;
+    }
+
+    @keyframes flower {
+        0%,100% {
+            transform: rotate(-5deg) scale(1);
+        }
+
+        50% {
+            transform: rotate(5deg) scale(1.08);
+        }
+    }
+
+    .signature {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #aaa;
+    }
+
+    /* ЛЕТАЮЩИЕ ЦВЕТЫ ПОСЛЕ ФИНАЛА */
+
+    .petal {
+        position: fixed;
+        top: -50px;
+        font-size: 25px;
+        pointer-events: none;
+        z-index: 20;
+
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    @media(max-width: 500px) {
+
+        .card {
+            min-height: 400px;
+            padding: 35px 22px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 25px;
+        }
+
+        .floating {
+            opacity: 0.35;
         }
     }
 </style>
@@ -104,80 +305,136 @@
 
 <body>
 
+
+<!-- ФОН -->
+
+<div class="background">
+
+    <div class="floating item1">🌷</div>
+    <div class="floating item2">🐱</div>
+    <div class="floating item3">🌼</div>
+    <div class="floating item4">🐈</div>
+    <div class="floating item5">🌸</div>
+    <div class="floating item6">🌿</div>
+
+</div>
+
+
 <div class="card">
 
-    <!-- Первый экран -->
-    <div id="screen1" class="screen active">
 
-        <div class="emoji">💌</div>
+    <!-- START -->
 
-        <h1>Ақжайна</h1>
+    <div class="screen active" id="start">
 
-        <p>Как ты себя чувствуешь?</p>
+        <div class="cat">🐱</div>
 
-        <button class="main-btn" onclick="nextScreen()">
+        <h1>Открой меня</h1>
+
+        <p>
+            Тут для тебя кое-что маленькое.
+        </p>
+
+        <button onclick="next('q1')">
+            Открыть
+        </button>
+
+    </div>
+
+
+    <!-- QUESTION 1 -->
+
+    <div class="screen" id="q1">
+
+        <div class="cat">🐈</div>
+
+        <h2>Как дела?</h2>
+
+        <p>Можешь написать как есть.</p>
+
+        <input
+            id="answer1"
+            type="text"
+            placeholder="Напиши здесь..."
+        >
+
+        <button onclick="answer('answer1','q2')">
             Дальше
         </button>
 
     </div>
 
 
-    <!-- Второй экран -->
-    <div id="screen2" class="screen">
+    <!-- QUESTION 2 -->
 
-        <div class="emoji">🤔</div>
+    <div class="screen" id="q2">
 
-        <h1>Есть один вопрос...</h1>
+        <div class="cat">🐱</div>
 
-        <p>Нужен ли тебе Арсен?</p>
+        <h2>Купила рамен?</h2>
 
-        <button class="yes" onclick="yesAnswer()">
-            Да
-        </button>
+        <p>Очень важный вопрос.</p>
 
-        <button class="no" onclick="noAnswer()">
-            Нет
+        <input
+            id="answer2"
+            type="text"
+            placeholder="Ну-ка..."
+        >
+
+        <button onclick="answer('answer2','q3')">
+            Дальше
         </button>
 
     </div>
 
 
-    <!-- Если нажала ДА -->
-    <div id="screenYes" class="screen">
+    <!-- QUESTION 3 -->
 
-        <div class="emoji">🌷</div>
+    <div class="screen" id="q3">
 
-        <h1>Выздоравливай, Ақжайна!</h1>
+        <div class="cat">🐈‍⬛</div>
 
-        <p>
-            Поправляйся скорее.<br><br>
-            Набирайся сил,<br>
-            больше улыбайся<br>
-            и береги себя.
-        </p>
+        <h2>Счастливая?</h2>
 
-        <p>
-            С заботой,<br>
-            <span class="name">Арсенчик Айтишник 👨‍💻</span>
-        </p>
+        <p>Тут тоже можно ответить честно.</p>
+
+        <input
+            id="answer3"
+            type="text"
+            placeholder="Твой ответ..."
+        >
+
+        <button onclick="finish()">
+            Ответить
+        </button>
 
     </div>
 
 
-    <!-- Если нажала НЕТ -->
-    <div id="screenNo" class="screen">
+    <!-- FINAL -->
 
-        <div class="emoji">🔒</div>
+    <div class="screen" id="final">
 
-        <h1>Не-а 😄</h1>
+        <div class="flowers">
+            🌷🌼🌷
+        </div>
+
+        <h1>Выздоравливай</h1>
 
         <p>
-            Тогда открытка не откроется.
+            Набирайся сил.<br>
+            Ешь вкусный рамен.<br>
+            Отдыхай побольше.<br>
+            И береги себя.
         </p>
 
-        <button class="main-btn" onclick="tryAgain()">
-            Попробовать ещё раз
-        </button>
+        <div class="cat">
+            🐱
+        </div>
+
+        <div class="signature">
+            Арсенчик Айтишник
+        </div>
 
     </div>
 
@@ -185,7 +442,9 @@
 
 
 <script>
-function showScreen(id) {
+
+function next(id) {
+
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
@@ -193,21 +452,77 @@ function showScreen(id) {
     document.getElementById(id).classList.add("active");
 }
 
-function nextScreen() {
-    showScreen("screen2");
+
+function answer(inputId, nextId) {
+
+    const input = document.getElementById(inputId);
+
+    if(input.value.trim() === "") {
+
+        input.focus();
+
+        input.style.borderColor = "#e6a4a4";
+
+        setTimeout(() => {
+            input.style.borderColor = "#e8e8e8";
+        }, 1000);
+
+        return;
+    }
+
+    next(nextId);
 }
 
-function yesAnswer() {
-    showScreen("screenYes");
+
+function finish() {
+
+    const input = document.getElementById("answer3");
+
+    if(input.value.trim() === "") {
+        input.focus();
+        return;
+    }
+
+    next("final");
+
+    createFlowers();
 }
 
-function noAnswer() {
-    showScreen("screenNo");
+
+function createFlowers() {
+
+    const flowers = ["🌸","🌷","🌼","🌿"];
+
+    for(let i = 0; i < 25; i++) {
+
+        setTimeout(() => {
+
+            const flower = document.createElement("div");
+
+            flower.className = "petal";
+
+            flower.innerText =
+                flowers[Math.floor(Math.random() * flowers.length)];
+
+            flower.style.left =
+                Math.random() * 100 + "vw";
+
+            flower.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            flower.style.fontSize =
+                (18 + Math.random() * 20) + "px";
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, 7000);
+
+        }, i * 120);
+    }
 }
 
-function tryAgain() {
-    showScreen("screen2");
-}
 </script>
 
 </body>
